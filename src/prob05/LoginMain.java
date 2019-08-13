@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class LoginMain {
 
+	@SuppressWarnings("unlikely-arg-type")
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		
@@ -19,10 +20,15 @@ public class LoginMain {
 		System.out.println("비밀번호를 입력하시오 : ");
 		String password = scanner.nextLine();
 		
-		/*
-		 *  로그인 처리 부분을 완성 합니다.
-		 */
-		
+	
+		User visiter = new User(id, password);
+		try {
+			login(joinUsers, visiter);
+		} catch (UserNotFoundException e) {
+			e.printStackTrace();
+		} catch (PasswordDismatchException e) {
+			e.printStackTrace();
+		}
 
 	}
 	
@@ -36,5 +42,6 @@ public class LoginMain {
 		if( !savedUser.getPassword().equals( user.getPassword()) ){
 			throw new PasswordDismatchException();
 		}
+		System.out.println("로그인 성공");
 	}
 }
